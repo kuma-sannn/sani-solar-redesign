@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import DOMPurify from "dompurify";
 import { JSDOM } from "jsdom";
@@ -22,7 +22,6 @@ const formSchema = z.object({
 });
 
 // Simple in-memory rate limiter for demo purposes
-// In a real production app, use Redis / Upstash
 const rateLimitMap = new Map<string, { count: number; lastReset: number }>();
 const RATE_LIMIT = 5; // Max 5 requests
 const WINDOW_MS = 60 * 1000; // per 1 minute
@@ -49,7 +48,11 @@ function checkRateLimit(ip: string): boolean {
     return true;
 }
 
-export async function POST(req: Request) {
+export async function GET() {
+    return NextResponse.json({ status: "API is operational" });
+}
+
+export async function POST(req: NextRequest) {
     try {
         // 1. Rate Limiting Check
         const ip = req.headers.get("x-forwarded-for") || "unknown-ip";

@@ -117,7 +117,7 @@ export default function ServicesPage() {
 
             {/* Trust CTA Section */}
             <section className="py-24 bg-primary text-primary-foreground relative overflow-hidden">
-                <div className="absolute inset-0 bg-[url('/noise.png')] opacity-10 mix-blend-overlay pointer-events-none" />
+                <div className="absolute inset-0 bg-white/5 opacity-10 pointer-events-none" />
                 <div className="container mx-auto px-4 relative z-10 text-center">
                     <motion.div
                         initial={{ opacity: 0, scale: 0.95 }}
