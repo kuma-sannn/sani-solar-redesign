@@ -3,6 +3,8 @@ import { z } from "zod";
 import DOMPurify from "dompurify";
 import { JSDOM } from "jsdom";
 
+export const dynamic = "force-dynamic";
+
 // Initialize DOMPurify on the server
 const window = new JSDOM("").window;
 const purify = DOMPurify(window);
