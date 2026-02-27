@@ -13,6 +13,9 @@ export const metadata: Metadata = {
   keywords: ["Solar Panel Installation Mumbai", "Sani Solar Solutions", "Commercial Solar", "Residential Solar", "Solar ROI Calculator"],
 };
 
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -20,8 +23,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth">
-      <body className={`${inter.variable} font-sans antialiased text-foreground bg-background`}>
-        {children}
+      <body className={`${inter.variable} font-sans antialiased text-foreground bg-background flex flex-col min-h-screen`}>
+        <Navbar />
+        <main className="flex-grow pt-24">
+          {children}
+        </main>
+        <Footer />
       </body>
     </html>
   );

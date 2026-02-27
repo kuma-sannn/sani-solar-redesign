@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import Link from "next/link";
 
 export default function Hero() {
     return (
@@ -42,21 +43,25 @@ export default function Hero() {
                     </p>
 
                     <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                        <motion.button
+                        <motion.div
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
-                            className="px-8 py-4 bg-primary text-primary-foreground rounded-full font-semibold text-lg flex items-center gap-2 shadow-lg hover:shadow-primary/50 transition-all w-full sm:w-auto justify-center"
+                            className="w-full sm:w-auto"
                         >
-                            Get a Free Estimate
-                            <ArrowRight className="w-5 h-5" />
-                        </motion.button>
-                        <motion.button
+                            <Link href="/contact" className="px-8 py-4 bg-primary text-primary-foreground rounded-full font-semibold text-lg flex items-center gap-2 shadow-lg hover:shadow-primary/50 transition-all w-full justify-center">
+                                Get a Free Estimate
+                                <ArrowRight className="w-5 h-5" />
+                            </Link>
+                        </motion.div>
+                        <motion.div
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
-                            className="px-8 py-4 bg-muted text-foreground rounded-full font-semibold text-lg hover:bg-muted/80 transition-all w-full sm:w-auto justify-center"
+                            className="w-full sm:w-auto"
                         >
-                            Learn More
-                        </motion.button>
+                            <Link href="/about" className="px-8 py-4 bg-muted text-foreground rounded-full font-semibold text-lg hover:bg-muted/80 transition-all w-full justify-center inline-block">
+                                Learn More
+                            </Link>
+                        </motion.div>
                     </div>
                 </motion.div>
             </div>

@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, animate } from "framer-motion";
 import { Calculator, IndianRupee, Leaf, Zap } from "lucide-react";
+import Link from "next/link";
 
 function Counter({ value, isFloat = false }: { value: number; isFloat?: boolean }) {
     const ref = useRef<HTMLSpanElement>(null);
@@ -135,13 +136,17 @@ export default function RoiCalculator() {
                         </div>
 
                         <div className="pt-4 border-t border-white/20 mt-4">
-                            <motion.button
+                            <motion.div
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
-                                className="w-full bg-white text-primary rounded-xl py-4 font-bold text-lg hover:shadow-lg transition-all"
                             >
-                                Get Exact Custom Quote
-                            </motion.button>
+                                <Link
+                                    href="/contact"
+                                    className="block w-full text-center bg-white text-primary rounded-xl py-4 font-bold text-lg hover:shadow-lg transition-all"
+                                >
+                                    Get Exact Custom Quote
+                                </Link>
+                            </motion.div>
                         </div>
                     </div>
                 </div>
