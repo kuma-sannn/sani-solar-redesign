@@ -1,13 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
-import DOMPurify from "dompurify";
-import { JSDOM } from "jsdom";
 
 export const dynamic = "force-dynamic";
 
-// Initialize DOMPurify on the server
-const window = new JSDOM("").window;
-const purify = DOMPurify(window);
+// Simple server-safe sanitizer to avoid heavy JSDOM dependencies on Vercel
+function simpleSanitize(str: string): string {
+    return str.replace(/[<>]/g, ""); // Basic XSS prevention for demo purposes
+}
 
 // Same schema as frontend for server-side validation
 const formSchema = z.object({
@@ -74,10 +73,10 @@ export async function POST(req: NextRequest) {
 
         // 3. Input Sanitization (XSS Prevention)
         const sanitizedData = {
-            name: purify.sanitize(validatedData.name),
-            phone: purify.sanitize(validatedData.phone),
-            monthlyBill: purify.sanitize(validatedData.monthlyBill),
-            propertyType: purify.sanitize(validatedData.propertyType),
+            name: simpleSanitize(validatedData.name),
+            phone: simpleSanitize(validatedData.phone),
+            monthlyBill: simpleSanitize(validatedData.monthlyBill),
+            propertyType: simpleSanitize(validatedData.propertyType),
         };
 
         // 4. Proceed with secure logic... (e.g., save to Database, send Email)

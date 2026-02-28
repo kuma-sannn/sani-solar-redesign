@@ -1,8 +1,10 @@
 "use server";
 
 import { z } from "zod";
-import DOMPurify from "dompurify";
-import { JSDOM } from "jsdom";
+
+function simpleSanitize(str: string): string {
+    return str.replace(/[<>]/g, "");
+}
 
 const formSchema = z.object({
     name: z.string().min(2, "Name must be at least 2 characters."),
@@ -23,14 +25,11 @@ export async function submitConsultation(data: any) {
         const validatedData = formSchema.parse(data);
 
         // 2. Sanitization
-        const window = new JSDOM("").window;
-        const purify = DOMPurify(window);
-
         const sanitizedData = {
-            name: purify.sanitize(validatedData.name),
-            phone: purify.sanitize(validatedData.phone),
-            monthlyBill: purify.sanitize(validatedData.monthlyBill),
-            propertyType: purify.sanitize(validatedData.propertyType),
+            name: simpleSanitize(validatedData.name),
+            phone: simpleSanitize(validatedData.phone),
+            monthlyBill: simpleSanitize(validatedData.monthlyBill),
+            propertyType: simpleSanitize(validatedData.propertyType),
         };
 
         // 3. Process (Logging for now, ready for DB/Email)
