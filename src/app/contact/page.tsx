@@ -4,6 +4,8 @@ import { motion } from "framer-motion";
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
 import ContactForm from "@/components/ContactForm";
 
+export const dynamic = "force-dynamic";
+
 export default function ContactPage() {
     return (
         <div className="bg-background min-h-screen text-foreground overflow-hidden">
