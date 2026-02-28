@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { motion, AnimatePresence } from "framer-motion";
 import { CheckCircle2, AlertCircle, Loader2 } from "lucide-react";
+import { submitConsultation } from "@/app/actions";
 
 const formSchema = z.object({
     name: z.string().min(2, "Name must be at least 2 characters."),
@@ -45,17 +46,9 @@ export default function ContactForm() {
         setIsSubmitting(true);
 
         try {
-            const response = await fetch("/api/consultation", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(data),
-            });
+            const result = await submitConsultation(data);
 
-            const result = await response.json();
-
-            if (!response.ok) {
+            if (!result.success) {
                 throw new Error(result.error || "Failed to submit request.");
             }
 
