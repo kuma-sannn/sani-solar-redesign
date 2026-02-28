@@ -46,12 +46,20 @@ export default function ContactForm() {
         setIsSubmitting(true);
 
         try {
-            const result = await submitConsultation(data);
+            const response = await fetch("/api/consultation", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(data),
+            });
 
-            if (!result.success) {
-                throw new Error(result.error || "Failed to submit request.");
+            if (!response.ok) {
+                const errorData = await response.json().catch(() => ({}));
+                throw new Error(errorData.error || "Failed to submit request.");
             }
 
+            const result = await response.json();
             console.log("Form successfully submitted:", result);
             setIsSuccess(true);
             reset();
